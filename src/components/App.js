@@ -3,8 +3,8 @@ import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import { addMovie, setShowFavourites } from "../actions";
-import FavouritesCard from "./Favorite";
-import { Switch, Route, Link } from "react-router-dom";
+import { StoreContext } from "..";
+import { search } from "../reducers";
 
 class App extends React.Component {
   componentDidMount() {
@@ -17,9 +17,9 @@ class App extends React.Component {
     // console.log(this.props.store.getState());
   }
   isMovieFavorite = (m) => {
-    const { favourites } = this.props.store.getState();
+    const { movies } = this.props.store.getState();
     // console.log(favourites);
-    const index = favourites.indexOf(m);
+    const index = movies.favourites.indexOf(m);
 
     if (index !== -1) {
       return true;
@@ -37,15 +37,16 @@ class App extends React.Component {
 
   render() {
     const { store } = this.props;
+    const { movies, search } = this.props.store.getState();
 
-    const { list, favourites, showFavourite } = this.props.store.getState();
+    const { list, favourites, showFavourite } = movies;
 
     const display = showFavourite ? favourites : list;
 
-    // console.log(this.props.store.getState());
+    console.log(this.props.store.getState());
     return (
       <div className="App">
-        <Navbar />
+        <Navbar  />
         <div className="main">
           <div className="tabs">
             <div
@@ -59,7 +60,7 @@ class App extends React.Component {
               className={`tab ${showFavourite ? "active-tabs" : ""}`}
               onClick={this.handelFavouritesBtn}
             >
-              Favorites
+              Favorites   
             </div>
           </div>
           <div className="list">
@@ -114,4 +115,17 @@ class App extends React.Component {
   }
 }
 
-export default App;
+
+class AppWrapper extends React.Component {
+  render(){
+
+    return(
+      <StoreContext.Consumer>
+        {(store)=> <App store={store} 
+/>}
+      </StoreContext.Consumer>
+    )
+  }
+}
+
+export default AppWrapper;
