@@ -5,14 +5,14 @@ class MovieCard extends React.Component {
   handelFavoriteBtn = () => {
     const { movie, store } = this.props;
 
-    this.props.store.dispatch(addFavourite(movie));
-    console.log(store.getState());
+    this.props.dispatch(addFavourite(movie));
+   // console.log(store.getState());
   };
 
   handelUnFavoriteBtn = () => {
     const { movie, store } = this.props;
 
-    this.props.store.dispatch(removeFavourite(movie));
+    this.props.dispatch(removeFavourite(movie));
   };
   render() {
     const { movie, isFavorite } = this.props;
@@ -50,5 +50,7 @@ class MovieCard extends React.Component {
     );
   }
 }
+
+
 
 export default MovieCard;
