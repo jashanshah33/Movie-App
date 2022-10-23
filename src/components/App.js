@@ -37,8 +37,10 @@ class App extends React.Component {
   };
 
   render() {
-    const { store } = this.props;
-    const { movies, search } = this.props;
+    // const { store } = this.props;
+    // const { movies, search } = this.props;
+    const { movies } = this.props;
+
 
     const { list, favourites, showFavourite } = movies;
 
